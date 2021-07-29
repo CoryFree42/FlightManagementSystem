@@ -80,7 +80,7 @@ public class FlightDAO {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			return new Flight(id, rs.getString("arrival"), rs.getString("departure"), rs.getString("airline"), rs.getString("gate"));
+			return new Flight(id, rs.getString("arrivalLocation"), rs.getString("departureLocation"), rs.getString("airline"), rs.getString("gateNumber"));
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
