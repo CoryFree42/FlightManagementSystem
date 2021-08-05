@@ -8,13 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 import com.skillstorm.beans.Flight;
 
 public class FlightDAO {
 	
 	private final static String url = "jdbc:mysql://localhost:3306/flights";
 	private final static String username = "root";
-	private final static String password = "barCelona10!";
+	private final static String password = "root";
 	
 	static {
 		try {
@@ -88,9 +90,9 @@ public class FlightDAO {
 	}
 	
 	public Set<Flight> findAll() {
-		Set<Flight> results = new HashSet<>();
+		Set<Flight> results = new TreeSet<>();
 		try(Connection conn = DriverManager.getConnection(url, username, password)) {
-			String sql = "select id, arrivalLocation, departureLocation, airline, gateNumber from flight";
+			String sql = "select id, arrivalLocation, departureLocation, airline, gateNumber from flight order by id asc";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			//returns rows from the query, starts at row 0 (full of null)
 			ResultSet rs = stmt.executeQuery();

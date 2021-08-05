@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flights</title>
+
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <style>
+            body {
+            background-color: #abcdef;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "container-fluid">
+            <br>
+            <h1>Flight Rental System</h1>
+            <br>
+            <br>
+            <div id="fullBackground" class="div-back">
+                <br>
+
+                <div>
+                    <div>
+                        <h3><u>Add a Flight to the Table</u></h3>
+                        <br>
+                        <form id="add-flight-form">
+                            <div class="row">
+                                <div class="col-2 col-center"><input type="text" class="form-control text-box-border" id="flight-arrivalLocation" name="flight-arrivalLocation" placeholder="Arrival Location"/></div>
+                                <div class="col-2 col-center"><input type="text" class="form-control text-box-border" id="flight-departureLocation" name="flight-departureLocation" placeholder="Departure Location"/></div>
+                                <div class="col-2 col-center"><input type="text" class="form-control text-box-border" id="flight-airline" name="flight-airline" placeholder="Airline"/></div>
+                                <div class="col-2 col-center"><input type="text" class="form-control text-box-border" id="flight-gateNumber" name="flight-gateNumber" placeholder="Gate Number"/></div>
+                            </div>
+                            <br>
+                            <div><input type="submit" id="add-flight" value="Add Flight" class="btn btn-primary btn-color"/></div>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                <div>
+
+                <div>
+                    <div>
+                        <h3><u>Update a Flight in the Table</u></h3>
+                        <br>
+                        <form id='update-flight-form'>
+                            <div class="row">
+                                <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='update-flight-id' name='update-flight-id' placeholder="Flight ID"/></div>
+                                <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='update-flight-arrivalLocation' name='update-flight-arrivalLocation' placeholder="Arrival Location"/></div>
+                                <div class="col-2 col-center"><input type="text" class="form-control text-box-border" id='update-flight-departureLocation' name='update-flight-departureLocation' placeholder="Departure Location"/></div>
+                                <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='update-flight-airline' name='update-flight-airline' placeholder="Airline"/></div>
+                                <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='update-flight-gateNumber' name='update-flight-gateNumber' placeholder="Gate Number"/></div>
+                            </div>
+                            <br>
+                            <div><input type='submit' id='update-flight' value='Update Flight' class="btn btn-primary btn-color"/></div>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            
+                <div>
+                    <h3><u>Find a Flight by the ID</u></h3>
+                    <br>
+                    <form id='find-flight-by-id'>
+                        <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='find-flight-id' name='find-flight-id' placeholder="ID to find"/></div> 
+                        <br>
+                        <div><input type='submit' id='find-flight' value='Find Flight' class="btn btn-primary btn-color"/></div>
+                        <br>
+                    </form>
+                    
+                    <div class="row">
+                        <div class="col-6 center">
+                            <table id="single-flight-data" class="table table-striped table-back-color"></table>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                    
+                <div>
+                    <h3><u>Delete a Flight by the ID</u></h3>
+                    <br>
+                    <form id='delete-flight-by-id'>
+                            <div class="col-2 col-center"><input type='text' class="form-control text-box-border" id='delete-flight-id' name='delete-flight-id' placeholder="ID to Delete"/></div> 
+                            <br>
+                            <div><input type='submit' id='delete-flight' value='Delete Flight' class="btn btn-primary btn-color"/></div> 
+                    </form>
+                </div>
+                <br>
+            
+                <div>
+                    <div class="row">
+                        <div class="col-6 center">
+                            <br>
+                            <table id="flight-data" class="table table-striped table-back-color table-overflow table-color">
+                                <tr><th>ID</th><th>Arrival Location</th><th>Departure Location</th><th>Airline</th><th>Gate Number</th></tr>            
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+
+        //POST request, create flight
+        document.getElementById('add-flight-form').addEventListener('submit', function(event){
+            event.preventDefault();
+            //callback function: what happens when the event occurs
+            var arrivalLocation_form = document.getElementById('flight-arrivalLocation').value;
+            var departureLocation_form = document.getElementById('flight-departureLocation').value;
+            var airline_form = document.getElementById('flight-airline').value;
+            var gateNumber_form = document.getElementById('flight-gateNumber').value;
+
+            //JSON object
+            var flight = {
+                arrivalLocation : arrivalLocation_form,
+                departureLocation : departureLocation_form,
+                airline : airline_form,
+                gateNumber : gateNumber_form
+            };
+            //make an xhr object
+            var xhr = new XMLHttpRequest();
+            //wait for successful response
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 201){
+                    //parse the response and add the data to the table
+                    console.log('Success!');
+                    var updatedFlight = JSON.parse(xhr.responseText);
+                    addFlightTotTable(updatedFlight);
+                    document.getElementById('add-flight-form').reset();
+                }
+            };
+            //open a post request
+            xhr.open('POST', '/flights/api/flight');
+            //send put request to the server
+            xhr.send(JSON.stringify(flight));
+        });
+
+        //PUT request, update flight
+        document.getElementById('update-flight-form').addEventListener('submit', function(event){
+            event.preventDefault();
+            //callback function: what happens when the event occurs
+            var id_form = document.getElementById('update-flight-id').value;
+            var arrivalLocation_form = document.getElementById('update-flight-arrivalLocation').value;
+            var departureLocation_form = document.getElementById('update-flight-departureLocation').value;
+            var airline_form = document.getElementById('update-flight-airline').value;
+            var gateNumber_form = document.getElementById('update-flight-gateNumber').value;
+
+            //JSON object
+            var flight = {
+                id : id_form,
+                arrivalLocation : arrivalLocation_form,
+                departureLocation : departureLocation_form,
+                airline : airline_form,
+                gateNumber : gateNumber_form
+            }; 
+
+            //make an xhr object
+            var xhr = new XMLHttpRequest();
+            //wait for successful response
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+
+                    //parse through the data received from the server
+                    var updatedFlight = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText);
+                    console.log('Success!');
+                    
+                    //searching through table for the correct id to update
+                    var flightTableData = document.getElementById('flight-data');
+                    var row = flightTableData.getElementsByTagName('tr');
+                    console.log(row);
+                    for(var i = 1; i < row.length; i++) {
+                        var cell = row[i].getElementsByTagName('td');
+                        console.log(cell);
+                        if (cell[0].innerText === id_form) {
+                            cell[1].innerText = arrivalLocation_form;
+                            cell[2].innerText = departureLocation_form;
+                            cell[3].innerText = airline_form;
+                            cell[4].innerText = gateNumber_form;
+                            break;
+                        }
+                    }
+                    //empty the form fields
+                    document.getElementById('update-flight-form').reset();
+                }
+            };
+            //open a put request
+            xhr.open('PUT', '/flights/api/flight');
+            //sends the put request to the server
+            xhr.send(JSON.stringify(flight));
+        });
+
+        //Get request, find flight
+        document.getElementById('find-flight-by-id').addEventListener('submit', function(event){
+            event.preventDefault();         
+
+            var flight_num = document.getElementById('find-flight-id').value;
+            var myFlight = [];
+
+            //make an xhr object
+            var xhr = new XMLHttpRequest();
+            //open a new get request, and concat the flightID onto the end
+            xhr.open('GET', '/flights/api/flight?id=' + flight_num);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    console.log('Success!');
+                    var flightArray = JSON.parse(xhr.responseText);
+                    console.log(flightArray);
+                    addSingleFlightTotTable(flightArray);
+                    document.getElementById('find-flight-by-id').reset();
+                }
+            };
+            //send the request ot the server
+            xhr.send();
+        });
+
+        //DELETE request, delete flight
+        document.getElementById('delete-flight-by-id').addEventListener('submit', function(event){
+            event.preventDefault();            
+
+            var flight_num = document.getElementById('delete-flight-id').value;
+
+            var myFlight = [];
+            //make an xhr object
+            var xhr = new XMLHttpRequest();
+            //open a new delete request with the flightID added on
+            xhr.open('DELETE', '/flights/api/flight?id=' + flight_num);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    console.log('Success!');
+                    //search through the table for the correct flight to delete
+                    var flightTableData2 = document.getElementById('flight-data');
+                    var row2 = flightTableData2.getElementsByTagName('tr');
+                    console.log(row2);
+                    for(var i = 1; i < row2.length; i++) {
+                        var cell2 = row2[i].getElementsByTagName('td');
+                        if (cell2[0].innerText === flight_num) {
+                            console.log(i);
+                            console.log(row2[i].innerText);
+                            flightTableData2.deleteRow(i);
+                            break;
+                        }
+                    }
+                    document.getElementById('delete-flight-by-id').reset();
+                }
+            };
+            //send the request to the server
+            xhr.send();
+
+        });
+
+        window.onload = function(){
+            //1. Make xhr object
+            let xhr = new XMLHttpRequest();
+            //2. Define what happens during the AJAX call
+            xhr.onreadystatechange = function(response){
+                if(xhr.readyState === 4){
+                    var flightArray = JSON.parse(xhr.responseText);
+                    //dom manipulation codes
+                    flightArray.forEach(flight => {
+                        addFlightTotTable(flight);
+                    });
+                }
+            }
+            //3. Open the xhr call (pass the HTTP verb and URL)
+            xhr.open('GET', '/flights/api/flight');
+            //4. Send the ajax call to the server
+            xhr.send();
+        }
+
+        //low level dom manipulation
+        function addFlightTotTable(flight){
+            var tr = document.createElement('tr');
+            var id = document.createElement('td');
+            var arrivalLocation = document.createElement('td');
+            var departureLocation = document.createElement('td');
+            var airline = document.createElement('td');
+            var gateNumber = document.createElement('td');
+            id.innerText = flight.id;
+            arrivalLocation.innerText = flight.arrivalLocation;
+            departureLocation.innerText = flight.departureLocation;
+            airline.innerText = flight.airline;
+            gateNumber.innerText = flight.gateNumber;
+            tr.appendChild(id);
+            tr.appendChild(arrivalLocation);
+            tr.appendChild(departureLocation);
+            tr.appendChild(airline);
+            tr.appendChild(gateNumber);
+            document.getElementById('flight-data').appendChild(tr);
+        }
+
+        function addSingleFlightTotTable(singleFlight){
+            //checks if table is empty, if not empty, replace the current entry with the new flight data
+            //if the table is empty, add the data to the table
+            if(document.querySelectorAll('#single-flight-data tr').length > 0){
+                var tableData = document.getElementById('single-flight-data');
+                var rows = tableData.getElementsByTagName('tr');
+                var cells = rows[0].getElementsByTagName('td');
+                cells[0].innerText = singleFlight.id;
+                cells[1].innerText = singleFlight.arrivalLocation;
+                cells[2].innerText = singleFlight.departureLocation;
+                cells[3].innerText = singleFlight.airline;
+                cells[4].innerText = singleFlight.gateNumber;
+
+            } else {
+                var tr = document.createElement('tr');
+                var id = document.createElement('td');
+                var arrivalLocation = document.createElement('td');
+                var departureLocation = document.createElement('td');
+                var airline = document.createElement('td');
+                var gateNumber = document.createElement('td');
+                id.innerText = singleFlight.id;
+                arrivalLocation.innerText = singleFlight.arrivalLocation;
+                departureLocation.innerText = singleFlight.departureLocation;
+                airline.innerText = singleFlight.airline;
+                gateNumber.innerText = singleFlight.gateNumber;
+                tr.appendChild(id);
+                tr.appendChild(arrivalLocation);
+                tr.appendChild(departureLocation);
+                tr.appendChild(airline);
+                tr.appendChild(gateNumber);
+                document.getElementById('single-flight-data').appendChild(tr);
+            }
+        }
+    </script>
+</html>

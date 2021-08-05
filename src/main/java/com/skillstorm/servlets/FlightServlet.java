@@ -17,17 +17,20 @@ import com.skillstorm.data.FlightDAO;
 @WebServlet(urlPatterns = "/api/flight")
 public class FlightServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+	
 	FlightDAO dao = new FlightDAO();
 	
 	//GET request to /api/flight
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//resp.addHeader("Access-Control-Allow-Origin", "*");
 		if(req.getParameter("id") != null) {
 			String param = req.getParameter("id");
 			int id = Integer.parseInt(param);
 			Flight flight = dao.findById(id); //JDBC
 			String json = new ObjectMapper().writeValueAsString(flight); //convert java object to json 
-			System.out.println(json);
+			//System.out.println(json);
 			resp.getWriter().print(json); //write the data to the response
 		}else {
 			Set<Flight> flights = dao.findAll();
@@ -39,6 +42,7 @@ public class FlightServlet extends HttpServlet {
 	//HttpServlet has methods to handle each type of HTTP request method: GET, POST, PUT, DELETE
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//resp.addHeader("Access-Control-Allow-Origin", "*");
 		InputStream requestBody = req.getInputStream();
 		//convert the request body into a Flight.class object
 		Flight flight = new ObjectMapper().readValue(requestBody, Flight.class);
@@ -52,6 +56,7 @@ public class FlightServlet extends HttpServlet {
 	
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//resp.addHeader("Access-Control-Allow-Origin", "*");
 		InputStream requestBody = req.getInputStream();
 		
 		Flight updatedFlight = new ObjectMapper().readValue(requestBody, Flight.class);
@@ -62,6 +67,7 @@ public class FlightServlet extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//resp.addHeader("Access-Control-Allow-Origin", "*");
 		if(req.getParameter("id") != null) {
 			String param = req.getParameter("id");
 			int id = Integer.parseInt(param);

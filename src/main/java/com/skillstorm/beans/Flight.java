@@ -2,7 +2,7 @@ package com.skillstorm.beans;
 
 import java.util.Objects;
 
-public class Flight {
+public class Flight implements Comparable<Flight>{
 	private int id;
 	private String arrivalLocation;
 	private String departureLocation;
@@ -94,5 +94,10 @@ public class Flight {
 		return Objects.equals(airline, other.airline) && Objects.equals(arrivalLocation, other.arrivalLocation)
 				&& Objects.equals(departureLocation, other.departureLocation)
 				&& Objects.equals(gateNumber, other.gateNumber) && id == other.id;
+	}
+
+	@Override
+	public int compareTo(Flight other) {
+		return this.id - other.id;
 	}
 }
